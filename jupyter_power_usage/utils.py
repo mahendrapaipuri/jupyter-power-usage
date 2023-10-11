@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 import os
 import re
 import subprocess
@@ -126,7 +125,7 @@ def read_power_limit_uw_counter(path):
         # it exists on all systems. If it exists return value
         if os.path.exists(power_limit_path):
             return int(open(power_limit_path, 'r').read().rstrip('\n'))
-    
+
     # If neither of them exists, return 0
     return 0
 

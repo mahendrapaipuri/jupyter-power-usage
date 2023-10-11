@@ -11,20 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 import re
 import time
 
 import psutil
 from jupyter_server.serverapp import ServerApp
-from py3nvml.py3nvml import (
-    NVMLError,
-    nvmlDeviceGetCount,
-    nvmlDeviceGetEnforcedPowerLimit,
-    nvmlDeviceGetHandleByIndex,
-    nvmlDeviceGetPowerUsage,
-    nvmlInit,
-)
+from py3nvml.py3nvml import nvmlDeviceGetCount
+from py3nvml.py3nvml import nvmlDeviceGetEnforcedPowerLimit
+from py3nvml.py3nvml import nvmlDeviceGetHandleByIndex
+from py3nvml.py3nvml import nvmlDeviceGetPowerUsage
+from py3nvml.py3nvml import NVMLError
+from py3nvml.py3nvml import nvmlInit
 
 from .utils import filter_rapl_domains
 

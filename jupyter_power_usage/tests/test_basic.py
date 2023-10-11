@@ -27,6 +27,4 @@ class TestBasic:
 
             # assert that we installed the application in settings
             print(nbapp_mock.web_app.settings)
-            assert (
-                "jupyter_power_usage_config" in nbapp_mock.web_app.settings
-            )
+            assert "jupyter_power_usage_config" in nbapp_mock.web_app.settings

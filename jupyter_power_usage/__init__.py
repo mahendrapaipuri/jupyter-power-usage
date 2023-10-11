@@ -11,13 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 from jupyter_server.utils import url_path_join as ujoin
 
 from ._version import __version__
 from .api import PowerMetricHandler
 from .config import PowerUsageDisplay
-from .metrics import CpuPowerUsage, GpuPowerUsage
+from .metrics import CpuPowerUsage
+from .metrics import GpuPowerUsage
 
 
 def _jupyter_labextension_paths():

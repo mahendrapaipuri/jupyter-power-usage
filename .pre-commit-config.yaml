@@ -11,7 +11,7 @@ repos:
 - repo: https://github.com/PyCQA/flake8
   rev: "6.1.0"
   hooks:
-    - id: flake8
+  - id: flake8
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.4.0
   hooks:
@@ -22,4 +22,3 @@ repos:
   - id: check-case-conflict
   - id: check-executables-have-shebangs
   - id: requirements-txt-fixer
-  
