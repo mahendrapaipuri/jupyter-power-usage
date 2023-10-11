@@ -1,0 +1,25 @@
+repos:
+- repo: https://github.com/asottile/reorder-python-imports
+  rev: v3.12.0
+  hooks:
+  - id: reorder-python-imports
+    language_version: python3
+- repo: https://github.com/psf/black
+  rev: 23.9.1
+  hooks:
+  - id: black
+- repo: https://github.com/PyCQA/flake8
+  rev: "6.1.0"
+  hooks:
+    - id: flake8
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: end-of-file-fixer
+  - id: check-json
+  - id: check-yaml
+    exclude: ^helm-chart/nbviewer/templates/
+  - id: check-case-conflict
+  - id: check-executables-have-shebangs
+  - id: requirements-txt-fixer
+  

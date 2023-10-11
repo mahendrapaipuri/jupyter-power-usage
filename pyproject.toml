@@ -1,0 +1,147 @@
+[build-system]
+requires = ["hatchling>=1.5.0", "jupyterlab>=3.0.0,<4", "hatch-nodejs-version"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jupyter_power_usage"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Framework :: Jupyter",
+    "Framework :: Jupyter :: JupyterLab",
+    "Framework :: Jupyter :: JupyterLab :: 3",
+    "Framework :: Jupyter :: JupyterLab :: Extensions",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "jupyterlab>=3.0.0,<4",
+    "jupyterlab-topbar>=0.6.0",
+    "psutil",
+    "py3nvml",
+]
+dynamic = ["version", "description", "authors", "urls", "keywords"]
+
+[project.optional-dependencies]
+dev = [
+    "autopep8",
+    "black",
+    "flake8",
+    "mock",
+    "pytest",
+    "pytest-cov>=2.6.1",
+]
+
+[tool.hatch.version]
+source = "nodejs"
+
+[tool.hatch.metadata.hooks.nodejs]
+fields = ["description", "authors", "urls"]
+
+[tool.hatch.build.targets.sdist]
+artifacts = ["jupyter_power_usage/labextension"]
+exclude = [".github", "binder"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"jupyter_power_usage/etc" = "etc/jupyter"
+"jupyter_power_usage/labextension" = "share/jupyter/labextensions/@mahendrapaipuri/jupyter-power-usage"
+"install.json" = "share/jupyter/labextensions/@mahendrapaipuri/jupyter-power-usage/install.json"
+
+[tool.hatch.build.hooks.version]
+path = "jupyter_power_usage/_version.py"
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder>=0.5"]
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = [
+    "jupyter_power_usage/labextension/static/style.js",
+    "jupyter_power_usage/labextension/package.json",
+]
+skip-if-exists = ["jupyter_power_usage/labextension/static/style.js"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+build_cmd = "build:prod"
+npm = ["jlpm"]
+
+[tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs]
+build_cmd = "build"
+npm = ["jlpm"]
+source_dir = "src"
+build_dir = "jupyter_power_usage/labextension"
+
+[tool.jupyter-releaser.options]
+version_cmd = "hatch version"
+
+[tool.jupyter-releaser.hooks]
+before-build-npm = [
+    "python -m pip install 'jupyterlab>=3.0.0,<4'",
+    "jlpm",
+    "jlpm build:prod"
+]
+before-build-python = ["jlpm clean:all"]
+
+[tool.check-wheel-contents]
+ignore = ["W002"]
+
+[tool.pylint.'TYPECHECK']
+ignored-classes = "TextFileReader"
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 88
+skip-string-normalization = true
+target-version = [
+    'py38',
+    'py39',
+    'py310',
+    'py311',
+]
+
+[tool.pytest.ini_options]
+# pytest 3.10 has broken minversion checks,
+# so we have to disable this until pytest 3.11
+# minversion = 3.3
+addopts = [
+    "--verbose",
+    "--color=yes",
+    "--cov=jupyter_power_usage",
+]
+python_files = "test_*.py"
+markers = [
+    "group: mark as a test for groups",
+    "services: mark as a services test",
+    "user: mark as a test for a user",
+    "slow: mark a test as slow",
+]
+
+[tool.coverage.run]
+omit = [
+    "jupyter_power_usage/tests/*",
+]
+parallel = true
+branch = false
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    "if self.debug:",
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+]
+ignore_errors = true
+omit = [
+    "tests/*",
+    "jupyter_power_usage/_version.py",
+    # Unused files
+    "*/site-packages/*"
+]

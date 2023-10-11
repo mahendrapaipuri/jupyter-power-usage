@@ -1,0 +1,71 @@
+{
+  "jupyter.lab.setting-icon-class": "jp-BuildIcon",
+  "jupyter.lab.setting-icon-label": "Power Usage Monitor",
+  "title": "Power Usage Monitor",
+  "description": "Power Usage Monitor",
+  "properties": {
+    "refreshRate": {
+      "title": "Refresh Rate (ms)",
+      "description": "Refresh Rate to sync metrics data",
+      "default": 5000,
+      "type": "number"
+    },
+    "cpu": {
+      "title": "CPU Power Settings",
+      "description": "Settings for the CPU Power indicator",
+      "default": {
+        "label": "CPU Power: "
+      },
+      "$ref": "#/definitions/cpu"
+    },
+    "gpu": {
+      "title": "GPU Power Settings",
+      "description": "Settings for the GPU Power indicator",
+      "default": {
+        "label": "GPU Power: "
+      },
+      "$ref": "#/definitions/gpu"
+    },
+    "emissionsRefreshRate": {
+      "title": "Update interval for eCO2 emissions factor (ms)",
+      "description": "eCO2 emission factor will be updated at this interval. Do not use too small intervals as these sort of APIs are rate limited.",
+      "default": 1800000,
+      "type": "number"
+    },
+    "countryCode": {
+      "title": "Emissions data of country",
+      "description": "Emissions data of this country will be used",
+      "default": "fr",
+      "enum": ["fr"],
+      "type": "string"
+    },
+    "emissionsFactor": {
+      "title": "Emission factor in gCO2.eq/kWh",
+      "description": "eCO2 emission factor will be used if Emission data for the selected country is not available.",
+      "default": 475,
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "cpu": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label for the CPU power indicator"
+        }
+      }
+    },
+    "gpu": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Label for the GPU power indicator"
+        }
+      }
+    }
+  },
+  "type": "object"
+}
