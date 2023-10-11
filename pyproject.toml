@@ -148,3 +148,17 @@ omit = [
     # Unused files
     "*/site-packages/*"
 ]
+
+[tool.jupyter-releaser.options]
+version-cmd = "hatch version"
+dist-dir = "dist"
+npm-install-options = "--legacy-peer-deps"
+release-message = "[ci skip] Publish {version}"
+tag-message = "[ci skip] Release {tag_name}"
+
+[tool.jupyter-releaser.hooks]
+before-build-npm = [
+    "pip install 'jupyterlab>=3.0.0,<4'",
+    "jlpm",
+    "jlpm run build:prod",
+]
