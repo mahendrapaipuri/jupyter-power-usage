@@ -1,8 +1,7 @@
 name: Check Release
 on:
   push:
-    branches:
-      - '*'
+    branches: [ master, main ]
   pull_request:
     branches:
       - '*'
