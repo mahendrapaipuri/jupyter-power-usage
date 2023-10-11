@@ -57,6 +57,15 @@ interface IResourceSettings extends JSONObject {
 }
 
 /**
+ * An interface for emissions settings.
+ */
+interface IEmissionsSettings extends JSONObject {
+  countryCode: string;
+  refreshRate: number;
+  factor: number;
+}
+
+/**
  * Initialization data for the jupyterlab-system-monitor extension.
  */
 const extension: JupyterFrontEndPlugin<void> = {
@@ -87,20 +96,21 @@ const extension: JupyterFrontEndPlugin<void> = {
         );
         refreshRate = DEFAULT_RAPL_REFRESH_RATE;
       }
-      emissionsRefreshRate = settings.get('emissionsRefreshRate')
-        .composite as number;
+      const emissionsSettings = settings.get('emissions')
+        .composite as IEmissionsSettings;
+      countryCode = emissionsSettings.countryCode;
+      emissionsRefreshRate = emissionsSettings.refreshRate;
+      emissionFactor = emissionsSettings.factor;
       if (emissionsRefreshRate < DEFAULT_EMISSIONS_REFRESH_RATE) {
         console.log(
           `Emissions update interval is floored at ${DEFAULT_EMISSIONS_REFRESH_RATE} ms`
         );
         emissionsRefreshRate = DEFAULT_EMISSIONS_REFRESH_RATE;
       }
-      emissionFactor = settings.get('emissionsFactor').composite as number;
       const cpuSettings = settings.get('cpu').composite as IResourceSettings;
       cpuPowerLabel = cpuSettings.label;
       const gpuSettings = settings.get('gpu').composite as IResourceSettings;
       gpuPowerLabel = gpuSettings.label;
-      countryCode = settings.get('countryCode').composite as string;
     }
 
     const emissionsModel = new EmissionFactor.Model({

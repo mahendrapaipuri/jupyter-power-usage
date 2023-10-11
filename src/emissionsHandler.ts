@@ -51,7 +51,7 @@ namespace France {
 /**
  * Get eCo2 Emissions coefficient in g/kWh for a given country
  *
- * @param countryCode Country code of a country e.g. fr, uk, us, de.
+ * @param countryCode ISO code of the country e.g. fr, uk, us, de.
  */
 async function getEmissions(countryCode: string): Promise<number> {
   if (countryCode === 'fr') {
