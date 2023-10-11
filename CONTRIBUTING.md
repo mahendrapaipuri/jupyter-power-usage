@@ -95,12 +95,11 @@ API requests for the emission factor is made from the frontend extension rather 
 
 In order to add support for other countries, users need to make changes in the file [emissionsHandler.ts](./src/emissionsHandler.ts) as follows:
 
-- Create a new namespace with name of the country. 
+- Create a new namespace with name of the country.
 - Add all the necessary logic to get the emission factor in g/kWh for the country in its namespace.
 - Finally, modify `getEmissions` function in [emissionsHandler.ts](./src/emissionsHandler.ts) to get the emission factor of the country.
 
 We need to add the country code in the enum section of `countryCode` object in [plugin.json](./schema/plugin.json). This enables users to use this country specific emission factor to estimate emissions.
-
 
 ## pre-commit
 

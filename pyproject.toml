@@ -113,7 +113,10 @@ target-version = [
 addopts = [
     "--verbose",
     "--color=yes",
+    "--cov-report=xml",
+    "--junitxml=python_junit.xml",
     "--cov=jupyter_power_usage",
+    "--cov-branch",
 ]
 python_files = "test_*.py"
 markers = [
