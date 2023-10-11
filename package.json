@@ -1,6 +1,6 @@
 {
   "name": "@mahendrapaipuri/jupyter-power-usage",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Extension that shows system power usage",
   "keywords": [
     "jupyter",

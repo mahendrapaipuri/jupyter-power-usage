@@ -1,5 +1,11 @@
 # jupyter-power-usage
 
+![Github Actions Status](https://github.com/mahendrapaipuri/jupyter-power-usage/workflows/Tests/badge.svg)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mahendrapaipuri/jupyter-power-usage/main)
+[![PyPI](https://img.shields.io/pypi/v/jupyter-power-usage)](https://pypi.python.org/pypi/jupyter-power-usage)
+[![PyPI](https://img.shields.io/pypi/l/jupyter-power-usage)](https://pypi.python.org/pypi/jupyter-power-usage)
+[![GitHub](https://img.shields.io/badge/issue_tracking-github-blue?logo=github)](https://github.com/jupyter-server/jupyter-resource-usage/issues)
+
 ![Screencast for power usage](./doc/power-usage.gif)
 
 The objective of this extension is to display power usage of the CPU and/or GPU on which jupyter server is running. Power usage is estimated using [Running Average Power Limit (RAPL)](https://web.eece.maine.edu/~vweaver/projects/rapl/) metrics that are available on Intel processors manufactured after 2012 (since broadwell). It is available on latest AMD processors as well. For the case of GPUs, currently only nVIDIA GPUs are supported and power usage is gathered from `nvidia-smi` tool.
