@@ -1,0 +1,7 @@
+name: jupyter-resource-usage
+channels:
+- conda-forge
+dependencies:
+- python=3
+- jupyterlab=3
+- nodejs=18
