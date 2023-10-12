@@ -3,6 +3,22 @@
   "jupyter.lab.setting-icon-label": "Power Usage Monitor",
   "title": "Power Usage Monitor",
   "description": "Power Usage Monitor",
+  "jupyter.lab.toolbars": {
+    "TopBar": [
+      {
+        "name": "cpu_power",
+        "rank": 140
+      },
+      {
+        "name": "gpu_power",
+        "rank": 150
+      },
+      {
+        "name": "emissions",
+        "rank": 160
+      }
+    ]
+  },
   "properties": {
     "refreshRate": {
       "title": "Refresh Rate (ms)",
