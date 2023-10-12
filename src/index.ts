@@ -3,11 +3,11 @@ import {
   JupyterFrontEndPlugin,
 } from '@jupyterlab/application';
 
+import { IToolbarWidgetRegistry } from '@jupyterlab/apputils';
+
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 import { JSONObject } from '@lumino/coreutils';
-
-import { ITopBar } from 'jupyterlab-topbar';
 
 import { CpuPowerView } from './cpuPowerView';
 
@@ -71,12 +71,12 @@ interface IEmissionsSettings extends JSONObject {
 const extension: JupyterFrontEndPlugin<void> = {
   id: '@mahendrapaipuri/jupyter-power-usage:plugin',
   autoStart: true,
-  requires: [ITopBar],
+  requires: [IToolbarWidgetRegistry],
   optional: [ISettingRegistry],
   activate: async (
     app: JupyterFrontEnd,
-    topBar: ITopBar,
-    settingRegistry: ISettingRegistry
+    toolbarRegistry: IToolbarWidgetRegistry,
+    settingRegistry: ISettingRegistry | null
   ) => {
     console.log('@mahendrapaipuri/jupyter-power-usage extension is activated');
 
@@ -132,20 +132,26 @@ const extension: JupyterFrontEndPlugin<void> = {
 
     // Add cpu power usage panel if metrics are available
     if (model.cpuPowerAvailable) {
-      const cpuPower = CpuPowerView.createPowerView(model, cpuPowerLabel);
-      topBar.addItem('cpu_power', cpuPower);
+      toolbarRegistry.addFactory('TopBar', 'cpu_power', () => {
+        const cpuPower = CpuPowerView.createPowerView(model, cpuPowerLabel);
+        return cpuPower;
+      });
     }
 
     // Add gpu power usage panel if metrics are available
     if (model.gpuPowerAvailable) {
-      const gpuPower = GpuPowerView.createPowerView(model, gpuPowerLabel);
-      topBar.addItem('gpu_power', gpuPower);
+      toolbarRegistry.addFactory('TopBar', 'gpu_power', () => {
+        const gpuPower = GpuPowerView.createPowerView(model, gpuPowerLabel);
+        return gpuPower;
+      });
     }
 
     // Add emissions panel if metrics are available
     if (model.emissionsAvailable) {
-      const emissions = EmissionsView.createEmissionsView(model);
-      topBar.addItem('emissions', emissions);
+      toolbarRegistry.addFactory('TopBar', 'emissions', () => {
+        const emissions = EmissionsView.createEmissionsView(model);
+        return emissions;
+      });
     }
   },
 };

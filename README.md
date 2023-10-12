@@ -1,10 +1,12 @@
 # jupyter-power-usage
 
 ![Github Actions Status](https://github.com/mahendrapaipuri/jupyter-power-usage/workflows/Tests/badge.svg)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mahendrapaipuri/jupyter-power-usage/main)
 [![PyPI](https://img.shields.io/pypi/v/jupyter-power-usage)](https://pypi.python.org/pypi/jupyter-power-usage)
 [![PyPI](https://img.shields.io/pypi/l/jupyter-power-usage)](https://pypi.python.org/pypi/jupyter-power-usage)
 [![GitHub](https://img.shields.io/badge/issue_tracking-github-blue?logo=github)](https://github.com/jupyter-server/jupyter-resource-usage/issues)
+
+**Try the extension on**
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mahendrapaipuri/jupyter-power-usage/main)
 
 ![Screencast for power usage](https://raw.githubusercontent.com/mahendrapaipuri/jupyter-power-usage/main/doc/power-usage.gif)
 
