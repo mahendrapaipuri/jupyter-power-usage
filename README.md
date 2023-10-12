@@ -6,11 +6,11 @@
 [![PyPI](https://img.shields.io/pypi/l/jupyter-power-usage)](https://pypi.python.org/pypi/jupyter-power-usage)
 [![GitHub](https://img.shields.io/badge/issue_tracking-github-blue?logo=github)](https://github.com/jupyter-server/jupyter-resource-usage/issues)
 
-![Screencast for power usage](./doc/power-usage.gif)
+![Screencast for power usage](https://raw.githubusercontent.com/mahendrapaipuri/jupyter-power-usage/main/doc/power-usage.gif)
 
 The objective of this extension is to display power usage of the CPU and/or GPU on which jupyter server is running. Power usage is estimated using [Running Average Power Limit (RAPL)](https://web.eece.maine.edu/~vweaver/projects/rapl/) metrics that are available on Intel processors manufactured after 2012 (since broadwell). It is available on latest AMD processors as well. For the case of GPUs, currently only nVIDIA GPUs are supported and power usage is gathered from `nvidia-smi` tool.
 
-Additionally, the extension is capable of estimating equivalent CO<sub>2</sub> emissions. Emissions are estimated based on the current power usage and a emission factor that gives equivalent grams of CO<sub>2</sub> power consumed. Currently, a [real time emission factor](https://www.rte-france.com/en/eco2mix/co2-emissions) is implemented for France and for the rest a constant configurable factor of 475 gCO<sub>2</sub>.eq/kWh is used.
+Additionally, the extension is capable of estimating equivalent CO<sub>2</sub> emissions. Emissions are estimated based on the current power usage and a emission factor that gives equivalent grams of CO<sub>2</sub> power consumed. Currently, a [real time emission factor](https://www.rte-france.com/en/eco2mix/co2-emissions) is implemented for France and for the rest a constant configurable [factor](https://arxiv.org/pdf/2306.08323.pdf) of 475 gCO<sub>2</sub>.eq/kWh is used.
 
 The metrics are displayed in the top bar of JupyterLab and are updated at a configurable interval. The default interval is 5 seconds. RAPL can enforce power limit so as nVIDIA GPUs. If those power limits are enabled and available, they will be displayed in the indicators.
 
@@ -64,7 +64,7 @@ By default `process` scope is used. The user can change it by CLI flag `--PowerU
 
 ### Frontend extension config
 
-![Frontend extension settings](./doc/frontend-settings.png)
+![Frontend extension settings](https://raw.githubusercontent.com/mahendrapaipuri/jupyter-power-usage/main/doc/frontend-settings.png)
 
 The frontend extension settings can be accessed by `Settings -> Advanced Settings -> Power Usage Monitor` in JupyterLab. Important settings are:
 
@@ -92,3 +92,11 @@ pip uninstall jupyter_power_usage
 ```
 
 This will uninstall python package and all the frontend related assets.
+
+## Troubleshooting
+
+- If power indicators do not show up in the JupyterLab, try reload the browser tab.
+  Sometimes network latencies prevent extension to load in time.
+
+- If there are any issues with the server side extension, they will be logged to the
+  same log that JupyterLab uses.
