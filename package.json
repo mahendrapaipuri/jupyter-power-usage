@@ -39,10 +39,13 @@
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
-    "lint": "jlpm run eslint && jlpm run prettier",
-    "lint:check": "jlpm run eslint:check && jlpm run prettier:check",
+    "lint": "jlpm run eslint && jlpm run prettier && jlpm stylelint",
+    "lint:check": "jlpm run eslint:check && jlpm run prettier:check && jlpm stylelint:check",
     "prettier": "prettier --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "prettier:check": "prettier --list-different \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
+    "stylelint": "jlpm stylelint:check --fix",
+    "stylelint:check": "stylelint --cache \"style/**/*.css\"",
+    "stylelint:files": "stylelint --fix",
     "install:extension": "jupyter labextension develop --overwrite .",
     "watch": "run-p watch:src watch:labextension",
     "watch:labextension": "jupyter labextension watch .",
@@ -89,6 +92,72 @@
     "outputDir": "jupyter_power_usage/labextension"
   },
   "styleModule": "style/index.js",
+  "eslintIgnore": [
+    "**/*.d.ts",
+    "dist",
+    "*node_modules*",
+    "coverage",
+    "tests",
+    "venv",
+    ".venv"
+  ],
+  "prettier": {
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "tsconfig.json",
+      "sourceType": "module",
+      "tsconfigRootDir": "."
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          "selector": "interface",
+          "format": ["PascalCase"],
+          "custom": {
+            "regex": "^I[A-Z]",
+            "match": true
+          }
+        }
+      ],
+      "@typescript-eslint/no-unused-vars": ["warn", { "args": "none" }],
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-namespace": "off",
+      "@typescript-eslint/no-use-before-define": "off",
+      "@typescript-eslint/quotes": [
+        "error",
+        "single",
+        { "avoidEscape": true, "allowTemplateLiterals": false }
+      ],
+      "curly": ["error", "all"],
+      "eqeqeq": "error",
+      "prefer-arrow-callback": "error"
+    }
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-recommended",
+      "stylelint-config-standard",
+      "stylelint-prettier/recommended"
+    ],
+    "rules": {
+      "no-empty-source": null,
+      "selector-class-pattern": null,
+      "property-no-vendor-prefix": null,
+      "selector-no-vendor-prefix": null,
+      "value-no-vendor-prefix": null
+    }
+  },
   "//": [
     "These are comments that will survive: https://groups.google.com/g/nodejs/c/NmL7jdeuw0M/m/yTqI05DRQrIJ?pli=1",
     "Nested deps in resolutions: https://github.com/yarnpkg/rfcs/blob/master/implemented/0000-selective-versions-resolutions.md#package-designation",
