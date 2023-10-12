@@ -1,24 +1,43 @@
 repos:
-- repo: https://github.com/asottile/reorder-python-imports
-  rev: v3.12.0
-  hooks:
-  - id: reorder-python-imports
-    language_version: python3
-- repo: https://github.com/psf/black
-  rev: 23.9.1
-  hooks:
-  - id: black
-- repo: https://github.com/PyCQA/flake8
-  rev: "6.1.0"
-  hooks:
-  - id: flake8
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
-  hooks:
-  - id: end-of-file-fixer
-  - id: check-json
-  - id: check-yaml
-    exclude: ^helm-chart/nbviewer/templates/
-  - id: check-case-conflict
-  - id: check-executables-have-shebangs
-  - id: requirements-txt-fixer
+  - repo: https://github.com/asottile/reorder-python-imports
+    rev: v3.12.0
+    hooks:
+      - id: reorder-python-imports
+        language_version: python3
+  - repo: https://github.com/psf/black
+    rev: 23.9.1
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/flake8
+    rev: '6.1.0'
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.1.1
+    hooks:
+      - id: prettier
+        additional_dependencies:
+          - prettier@2.1.1
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v7.32.0
+    hooks:
+      - id: eslint
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
+        types: [file]
+        additional_dependencies:
+          - '@typescript-eslint/eslint-plugin@4.8.1'
+          - '@typescript-eslint/parser@4.8.1'
+          - eslint@^7.14.0
+          - eslint-config-prettier@6.15.0
+          - eslint-plugin-prettier@3.1.4
+          - typescript@4.1.3
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: check-json
+      - id: check-yaml
+        exclude: ^helm-chart/nbviewer/templates/
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: requirements-txt-fixer
