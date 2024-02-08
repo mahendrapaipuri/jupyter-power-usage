@@ -166,9 +166,9 @@ def filter_rapl_domains():
             filtered_domains_power_limits[unq_dom_name] = read_power_limit_uw_counter(
                 dom_dict['energy_uj']
             )
-            filtered_domains_overflow_counters[
-                unq_dom_name
-            ] = read_max_energy_uj_counter(dom_dict['energy_uj'])
+            filtered_domains_overflow_counters[unq_dom_name] = (
+                read_max_energy_uj_counter(dom_dict['energy_uj'])
+            )
     return (
         filtered_domains,
         filtered_domains_power_limits,
