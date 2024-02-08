@@ -1,16 +1,3 @@
-# Copyright 2023 IDRIS / jupyter
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 import re
 import time
 
@@ -29,6 +16,9 @@ from .utils import filter_rapl_domains
 # Units in W/GB RAM consumed
 # Source: https://arxiv.org/pdf/2306.08323.pdf
 DEFAULT_DRAM_CONSUMPTION = 0.375
+
+# Minimum share of procs in current scope
+CPU_SHARE_THRESHOLD = 0.001
 
 
 class CpuPowerUsage:
@@ -61,6 +51,8 @@ class CpuPowerUsage:
 
             # Setup first readings
             self.rapl_readings_t = counters
+            self.total_cpu_time_t = self.get_total_cpu_time(psutil.cpu_times())
+            self.procs_cpu_time_t = self.total_cpu_time_t
             self.time_t = time.time()
 
     def power_usage_available(self):
@@ -70,6 +62,34 @@ class CpuPowerUsage:
     def get_power_limit(self):
         """Get CPU power limit"""
         return self._power_limit
+
+    @staticmethod
+    def get_total_cpu_time(cpu_times, proc=False):
+        """Get total CPU time at current time
+
+        Total cpu time excluding iowait, steal and idle. CPU is doing nothing in
+        these modes and so we exclude them.
+
+        If proc=True, sum only user and system cpu_times. Rest are not available
+        on cpu_times()
+
+        Example:
+        user=146611.61, nice=37933.89, system=74662.47, idle=3519011.28,
+        iowait=58120.7, irq=0.0, softirq=2281.55, steal=0.0, guest=0.0,
+        guest_nice=0.0
+        """
+        if proc:
+            return cpu_times.user + cpu_times.system
+        else:
+            return (
+                cpu_times.user
+                + cpu_times.nice
+                + cpu_times.system
+                + cpu_times.irq
+                + cpu_times.softirq
+                + cpu_times.guest
+                + cpu_times.guest_nice
+            )
 
     @staticmethod
     def read_energy_counter(path):
@@ -96,10 +116,31 @@ class CpuPowerUsage:
         if self.config.measurement_scope == 'system':
             return 1, 1
 
-        # CPU share is sum of all process's cpu percents
-        cpu_share = sum(
-            [psutil.Process(pid=p).cpu_percent(interval=0.05) / 100 for p in pids]
+        # CPU share of current scope is rate(procs_cpu_time) / rate(total_cpu_time)
+        # This will give the share of cpu time of processes in current scope to TOTAL
+        # cpu time. We dont need to account for number of CPUs as it is a ratio
+        #
+        # Total CPU time of all processes in the current scope
+        procs_cpu_times = sum(
+            [
+                self.get_total_cpu_time(psutil.Process(pid=p).cpu_times(), proc=True)
+                for p in pids
+            ]
         )
+        # Total CPU time of the host excluding times in IOwait, idle, steal
+        total_cpu_time = self.get_total_cpu_time(psutil.cpu_times())
+        cpu_share = (procs_cpu_times - self.procs_cpu_time_t) / (
+            total_cpu_time - self.total_cpu_time_t
+        )
+
+        # cpu_share can be negative when there is a lot of CPU activity and if all
+        # activity disappears suddently, it tends to go negative. Use a threshold to
+        # avoid negative values
+        cpu_share = max(cpu_share, CPU_SHARE_THRESHOLD)
+
+        # Update the times at t which will be used in next cycle
+        self.procs_cpu_time_t = procs_cpu_times
+        self.total_cpu_time_t = total_cpu_time
 
         # Memory share if sum of all process's memory / total memory consumption
         # We choose RSS here to estimate the share. Sum of all RSS will be more than
@@ -160,6 +201,7 @@ class CpuPowerUsage:
         # import random
         # cpu_power_usage = random.uniform(20, 30)
         # dram_power_usage = random.uniform(5, 10)
+
         cpu_share, mem_share = self.get_cpu_share(pids)
 
         # Set current measurements as previous measurements for next reading
