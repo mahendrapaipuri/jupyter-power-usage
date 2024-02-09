@@ -87,7 +87,7 @@ JupyterLab v3.6.6
         @mahendrapaipuri/jupyter-power-usage v0.1.0 enabled OK
 ```
 
-## Estimating emission factor
+<!-- ## Estimating emission factor
 
 Currently only French real time emission factor is implemented in the extension to estimation eCO<sub>2</sub> emissions based on power usage. For the rest of the countries a constant emission factor that can be configurable is used.
 
@@ -99,7 +99,7 @@ In order to add support for other countries, users need to make changes in the f
 - Add all the necessary logic to get the emission factor in g/kWh for the country in its namespace.
 - Finally, modify `getEmissions` function in [emissionsHandler.ts](./src/emissionsHandler.ts) to get the emission factor of the country.
 
-We need to add the country code in the enum section of `countryCode` object in [plugin.json](./schema/plugin.json). This enables users to use this country specific emission factor to estimate emissions.
+We need to add the country code in the enum section of `countryCode` object in [plugin.json](./schema/plugin.json). This enables users to use this country specific emission factor to estimate emissions. -->
 
 ## pre-commit
 

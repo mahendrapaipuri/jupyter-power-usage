@@ -84,7 +84,7 @@ The frontend extension settings can be accessed by `Settings -> Advanced Setting
 
 - `Electricity Maps Access token`: An API access token for Electricity Maps (See [Server Config](#electricity-maps-api-token)).
 
-- `Country code`: Currently only data for France is supported. The realtime emission factor from [RTE eCO<sub>2</sub> mix](https://www.rte-france.com/en/eco2mix/co2-emissions). We encourage users to add support for other countries. Please check [`CONTRIBUTING.md`](CONTRIBUTING.md) on how to do it. If your country is not available in the list, leave it blank.
+- `Country code`: ISO 3166-1 alpha-2 country code. This will be used only when `Electricity Maps` emission factor source is used.
 
 - `Refresh rate`: This defines how often the emission factor is updated in ms. For [RTE eCO<sub>2</sub> mix](https://www.rte-france.com/en/eco2mix/co2-emissions) data, it is updated every 30 min and has a rate limit of 50000 API requests per month.
 
