@@ -1,6 +1,7 @@
 from jupyter_server.utils import url_path_join as ujoin
 
 from ._version import __version__
+from .api import ElectrictyMapsHandler
 from .api import PowerMetricHandler
 from .config import PowerUsageDisplay
 from .metrics import CpuPowerUsage
@@ -36,6 +37,10 @@ def load_jupyter_server_extension(server_app):
                     'cpu_power_usage': cpu_power_usage,
                     'gpu_power_usage': gpu_power_usage,
                 },
+            ),
+            (
+                ujoin(base_url, 'api/metrics/v1/emission_factor/emaps') + '(.*)',
+                ElectrictyMapsHandler,
             ),
         ],
     )
