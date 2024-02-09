@@ -64,6 +64,10 @@ Currently the extension supports different measurement scopes:
 
 By default `process` scope is used. The user can change it by CLI flag `--PowerUsageDisplay.measurement_scope` to `jupyter lab` command. Alternatively, it can be configured in `jupyter_server_config.json` in [Jupyter config directory](https://docs.jupyter.org/en/latest/use/jupyter-directories.html#configuration-files).
 
+#### Electricity Maps API token
+
+An API token for electricity maps emission factor. By default API requests are made from jupyter server as they involve including authentication token. These are called proxied requests. If they fail, API requests directly from the browser will be made using the API token configured in the frontend extension. Users should configure the token on the server config as exposing API token in browsers can pose security issues. It can be set on CLI using `--PowerUsageDisplay.emaps_access_token=<token>`.
+
 ### Frontend extension config
 
 ![Frontend extension settings](https://raw.githubusercontent.com/mahendrapaipuri/jupyter-power-usage/main/doc/frontend-settings.png)
@@ -75,6 +79,10 @@ The frontend extension settings can be accessed by `Settings -> Advanced Setting
 - `CPU label` and `GPU label` settings are self explanatory.
 
 **Emissions Estimation Settings**
+
+- `Source of emission factor`: Currently [Electricity Maps](https://www.electricitymaps.com/) and [RTE eCO<sub>2</sub> mix](https://www.rte-france.com/en/eco2mix/co2-emissions) are supported. Note that RTE eCO<sub>2</sub> mix data is only available for France.
+
+- `Electricity Maps Access token`: An API access token for Electricity Maps (See [Server Config](#electricity-maps-api-token)).
 
 - `Country code`: Currently only data for France is supported. The realtime emission factor from [RTE eCO<sub>2</sub> mix](https://www.rte-france.com/en/eco2mix/co2-emissions). We encourage users to add support for other countries. Please check [`CONTRIBUTING.md`](CONTRIBUTING.md) on how to do it. If your country is not available in the list, leave it blank.
 
