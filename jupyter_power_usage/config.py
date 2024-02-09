@@ -1,4 +1,5 @@
 from traitlets import Enum
+from traitlets import Unicode
 from traitlets.config import Configurable
 
 # Minimum measurement period in millisec.
@@ -24,4 +25,8 @@ class PowerUsageDisplay(Configurable):
         This is only applicable to CPU power usage. If GPU power usage is available,
         GPU level power usage is reported always.
         """,
+    ).tag(config=True)
+
+    emaps_access_token = Unicode(
+        '', help="An API access token for Electricty Maps."
     ).tag(config=True)

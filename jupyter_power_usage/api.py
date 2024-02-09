@@ -17,8 +17,14 @@ from concurrent.futures import ThreadPoolExecutor
 
 import psutil
 from jupyter_server.base.handlers import JupyterHandler
+from jupyter_server.utils import url_escape
+from jupyter_server.utils import url_path_join
 from tornado import web
 from tornado.concurrent import run_on_executor
+from tornado.httpclient import AsyncHTTPClient
+from tornado.httpclient import HTTPError
+from tornado.httpclient import HTTPRequest
+from tornado.httputil import url_concat
 
 
 class PowerMetricHandler(JupyterHandler):
@@ -93,3 +99,55 @@ class PowerMetricHandler(JupyterHandler):
     @run_on_executor
     def _get_cpu_energy_usage(self, all_processes):
         return self.cpu_power_usage.get_power_usage(all_processes)
+
+
+class ElectrictyMapsHandler(JupyterHandler):
+    """
+    A proxy for the Electricity Maps API v3.
+
+    The purpose of this proxy is to provide authentication to the API requests.
+    """
+
+    client = AsyncHTTPClient()
+
+    def initialize(self):
+        # Get access token(s) from config
+        self.access_tokens = {}
+        self.access_tokens['emaps'] = self.settings[
+            'jupyter_power_usage_config'
+        ].emaps_access_token
+
+    @web.authenticated
+    async def get(self, path):
+        """Return emission factor data from electticity maps"""
+        try:
+            query = self.request.query_arguments
+            params = {key: query[key][0].decode() for key in query}
+            api_path = url_path_join('https://api.electricitymap.org', url_escape(path))
+
+            access_token = params.pop('access_token', None)
+            if self.access_tokens['emaps']:
+                # Preferentially use the config access_token if set
+                token = self.access_tokens['emaps']
+            elif access_token:
+                token = access_token
+            else:
+                token = ''
+
+            api_path = url_concat(api_path, params)
+
+            request = HTTPRequest(
+                api_path,
+                user_agent='JupyterLab Power Usage',
+                headers={'auth-token': f'{token}'},
+            )
+            response = await self.client.fetch(request)
+            data = json.loads(response.body.decode('utf-8'))
+
+            # Send the results back.
+            self.finish(json.dumps(data))
+
+        except HTTPError as err:
+            self.set_status(err.code)
+            message = err.response.body if err.response else str(err.code)
+            self.finish(message)
