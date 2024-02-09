@@ -313,9 +313,44 @@ export namespace EmissionFactor {
      * @param options The options for creating the model.
      */
     constructor(options: Model.IOptions) {
+      // Test an api request to the jupyter server
+      // to see if the access token is set on server.
+      // If so, use that. If not, warn the user and
+      // use the client-side access token.
+      if (options.emissionFactorSource === 'emaps') {
+        new Promise<boolean>(() => {
+          getEmissions(
+            options.emissionFactorSource,
+            true,
+            options.accessTokens,
+            options.countryCode
+          )
+            .then((result) => {
+              if (!result) {
+                this._useProxy = false;
+              } else {
+                this._useProxy = true;
+              }
+            })
+            .catch(() => {
+              console.warn(
+                'Emission factor from Electricity maps will be fetched ' +
+                  'by making API requests directly from the browser. ' +
+                  'If a access token has been set, this can pose security risks. ' +
+                  'Please configure the access token on Jupyter server extension.'
+              );
+              this._useProxy = false;
+            });
+        });
+      }
+
+      // Set polling
       this._poll = new Poll<number | null>({
         factory: (): Promise<number> =>
           Private.emissionsFactory(
+            options.emissionFactorSource,
+            this._useProxy,
+            options.accessTokens,
             options.countryCode,
             options.defaultEmissionFactor
           ),
@@ -393,6 +428,7 @@ export namespace EmissionFactor {
     }
 
     private _emissionFactorAvailable = false;
+    private _useProxy = false;
     private _currentEmissionFactor: number | null = null;
     private _poll: Poll<number | null>;
     private _changed = new Signal<this, void>(this);
@@ -403,6 +439,16 @@ export namespace EmissionFactor {
    */
   export namespace Model {
     /**
+     * Access tokens for emission sources.
+     */
+    export interface IAccessTokens {
+      /**
+       * The API access token for Electricity maps.
+       */
+      emaps: string;
+    }
+
+    /**
      * Options for creating a Emissions model.
      */
     export interface IOptions {
@@ -410,6 +456,16 @@ export namespace EmissionFactor {
        * The refresh rate (in ms) for updating emissions (g/kWh) value.
        */
       refreshRate: number;
+
+      /**
+       * The source of the emission factor.
+       */
+      emissionFactorSource: string;
+
+      /**
+       * The API access token for emission factor sources.
+       */
+      accessTokens: IAccessTokens;
 
       /**
        * The country for which we are querying emissions API server.
@@ -483,12 +539,20 @@ namespace Private {
    * Make a request to the emissions backend.
    */
   export const emissionsFactory = async (
+    emissionFactorSource: string,
+    proxy: boolean,
+    accessTokens: EmissionFactor.Model.IAccessTokens,
     countryCode: string,
     defaultEmissionFactor: number
   ): Promise<number | null> => {
     // This is emission factor typically expressed in g/kWh
     // We convert it to mg/Ws here
-    const emissionFactor = await getEmissions(countryCode);
+    const emissionFactor = await getEmissions(
+      emissionFactorSource,
+      proxy,
+      accessTokens,
+      countryCode
+    );
     if (emissionFactor) {
       return emissionFactor / EF_UNIT_CONVERSION;
     }
