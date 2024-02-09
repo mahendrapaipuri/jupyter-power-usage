@@ -46,9 +46,10 @@
       "title": "Emissions Estimation Settings",
       "description": "Settings for the estimating eCO2 emissions",
       "default": {
-        "countryCode": "",
+        "countryCode": "FR",
         "refreshRate": 1800000,
-        "factor": 475
+        "factor": 475,
+        "emapsAccessToken": ""
       },
       "$ref": "#/definitions/emissions"
     }
@@ -76,16 +77,35 @@
     "emissions": {
       "type": "object",
       "properties": {
+        "source": {
+          "title": "Source of emission factor",
+          "description": "Emission factor fetched from this source will be used. RTE eCO2 mix source is only available for France.",
+          "oneOf": [
+            {
+              "const": "emaps",
+              "title": "Electricity Maps"
+            },
+            {
+              "const": "rte",
+              "title": "RTE eCO2 mix"
+            }
+          ],
+          "default": "rte",
+          "type": "string"
+        },
+        "emapsAccessToken": {
+          "title": "Electricity Maps Access token",
+          "description": "API Access token for Electricity Maps.",
+          "type": "string"
+        },
         "countryCode": {
           "title": "Country code",
-          "description": "ISO code of the country of which emission factor will be used",
-          "enum": ["", "fr"],
-          "default": "",
+          "description": "ISO code of the country of which emission factor will be used.",
           "type": "string"
         },
         "refreshRate": {
           "title": "Refresh rate (ms)",
-          "description": "eCO2 emission factor will be updated at this interval. Do not use too small intervals as these sort of APIs are rate limited.",
+          "description": "eCO2 emission factor will be updated at this interval. Do not use too small intervals as these APIs are rate limited.",
           "type": "number"
         },
         "factor": {

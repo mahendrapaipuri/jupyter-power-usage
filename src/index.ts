@@ -50,6 +50,11 @@ const DEFAULT_COUNTRY_CODE = 'fr';
 const DEFAULT_EMISSION_FACTOR = 475;
 
 /**
+ * The default emission factor source
+ */
+const DEFAULT_EMISSION_FACTOR_SOURCE = 'rte';
+
+/**
  * An interface for resource settings.
  */
 interface IResourceSettings extends JSONObject {
@@ -60,6 +65,8 @@ interface IResourceSettings extends JSONObject {
  * An interface for emissions settings.
  */
 interface IEmissionsSettings extends JSONObject {
+  source: string;
+  emapsAccessToken: string;
   countryCode: string;
   refreshRate: number;
   factor: number;
@@ -84,6 +91,8 @@ const extension: JupyterFrontEndPlugin<void> = {
     let cpuPowerLabel = DEFAULT_CPU_POWER_LABEL;
     let gpuPowerLabel = DEFAULT_GPU_POWER_LABEL;
     let emissionsRefreshRate = DEFAULT_EMISSIONS_REFRESH_RATE;
+    let emissionFactorSource = DEFAULT_EMISSION_FACTOR_SOURCE;
+    let emapsAccessToken = '';
     let countryCode = DEFAULT_COUNTRY_CODE;
     let emissionFactor = DEFAULT_EMISSION_FACTOR;
 
@@ -98,6 +107,8 @@ const extension: JupyterFrontEndPlugin<void> = {
       }
       const emissionsSettings = settings.get('emissions')
         .composite as IEmissionsSettings;
+      emissionFactorSource = emissionsSettings.source;
+      emapsAccessToken = emissionsSettings.emapsAccessToken;
       countryCode = emissionsSettings.countryCode;
       emissionsRefreshRate = emissionsSettings.refreshRate;
       emissionFactor = emissionsSettings.factor;
@@ -115,6 +126,10 @@ const extension: JupyterFrontEndPlugin<void> = {
 
     const emissionsModel = new EmissionFactor.Model({
       refreshRate: emissionsRefreshRate,
+      emissionFactorSource: emissionFactorSource,
+      accessTokens: {
+        emaps: emapsAccessToken,
+      },
       countryCode: countryCode,
       defaultEmissionFactor: emissionFactor,
     });
