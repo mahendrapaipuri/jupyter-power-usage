@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.1.0
+
+([Full Changelog](https://github.com/mahendrapaipuri/jupyter-power-usage/compare/v1.0.0...43f5a12b352e65bd810d75bb06608e605836ca4c))
+
+### Enhancements made
+
+- Electricity Maps Support [#9](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/9) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+
+### Bugs fixed
+
+- Fix CPU share estimation [#7](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/7) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+
+### Maintenance and upkeep improvements
+
+- Fix CPU share estimation [#7](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/7) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/mahendrapaipuri/jupyter-power-usage/graphs/contributors?from=2023-10-12&to=2024-04-03&type=c))
+
+[@mahendrapaipuri](https://github.com/search?q=repo%3Amahendrapaipuri%2Fjupyter-power-usage+involves%3Amahendrapaipuri+updated%3A2023-10-12..2024-04-03&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.0.0
 
 ([Full Changelog](https://github.com/mahendrapaipuri/jupyter-power-usage/compare/v0.1.1...62b1ee6d0ed0a662330c0156807b07e493eeb85a))
@@ -19,8 +43,6 @@
 ([GitHub contributors page for this release](https://github.com/mahendrapaipuri/jupyter-power-usage/graphs/contributors?from=2023-10-12&to=2023-10-12&type=c))
 
 [@mahendrapaipuri](https://github.com/search?q=repo%3Amahendrapaipuri%2Fjupyter-power-usage+involves%3Amahendrapaipuri+updated%3A2023-10-12..2023-10-12&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.1
 
