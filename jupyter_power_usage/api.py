@@ -108,7 +108,14 @@ class ElectrictyMapsHandler(JupyterHandler):
     The purpose of this proxy is to provide authentication to the API requests.
     """
 
-    client = AsyncHTTPClient()
+    # Force a new instance to not to mess up with other instances that might exist in
+    # JupyterHub or other Jupyter related stacks
+    #
+    # Without this we noticed that JupyterHub will fail to spawn instances when internal
+    # TLS is on. The reason is that this new instantiation will override the already
+    # existing instance in single user extension that has SSL context configured. So
+    # we lose SSL context and hence cert verification will fail eventually failing spawn.
+    client = AsyncHTTPClient(force_instance=True)
 
     def initialize(self):
         # Get access token(s) from config
@@ -119,7 +126,7 @@ class ElectrictyMapsHandler(JupyterHandler):
 
     @web.authenticated
     async def get(self, path):
-        """Return emission factor data from electticity maps"""
+        """Return emission factor data from electricity maps"""
         try:
             query = self.request.query_arguments
             params = {key: query[key][0].decode() for key in query}
