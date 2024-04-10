@@ -1,11 +1,15 @@
 from jupyter_server.utils import url_path_join as ujoin
 
-from ._version import __version__
+from ._version import __version__  # noqa
 from .api import ElectrictyMapsHandler
 from .api import PowerMetricHandler
 from .config import PowerUsageDisplay
 from .metrics import CpuPowerUsage
 from .metrics import GpuPowerUsage
+
+
+def _jupyter_server_extension_points():
+    return [{"module": "jupyter_power_usage"}]
 
 
 def _jupyter_labextension_paths():
