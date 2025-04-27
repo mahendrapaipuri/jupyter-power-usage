@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.2.0
+
+([Full Changelog](https://github.com/mahendrapaipuri/jupyter-power-usage/compare/v1.1.1...903a5deb29fe761cb5da4a1d8a06533ea77bd458))
+
+### Enhancements made
+
+- Allow toggling indicator bar [#11](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/11) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/mahendrapaipuri/jupyter-power-usage/graphs/contributors?from=2024-04-10&to=2025-04-27&type=c))
+
+[@mahendrapaipuri](https://github.com/search?q=repo%3Amahendrapaipuri%2Fjupyter-power-usage+involves%3Amahendrapaipuri+updated%3A2024-04-10..2025-04-27&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.1.1
 
 ([Full Changelog](https://github.com/mahendrapaipuri/jupyter-power-usage/compare/v1.1.0...e4bed2566bee4ad972523c2fa1dced4121dbca9e))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/mahendrapaipuri/jupyter-power-usage/graphs/contributors?from=2024-04-03&to=2024-04-10&type=c))
 
 [@mahendrapaipuri](https://github.com/search?q=repo%3Amahendrapaipuri%2Fjupyter-power-usage+involves%3Amahendrapaipuri+updated%3A2024-04-03..2024-04-10&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.1.0
 
