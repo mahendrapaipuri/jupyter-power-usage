@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Base Setup
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip black 'jupyterlab>=3.0.0,<4'
+          python -m pip install --upgrade pip black 'jupyterlab>=4.0.0,<5'
 
       - name: Lint Python
         run: |
