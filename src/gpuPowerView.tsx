@@ -8,9 +8,11 @@ import { PowerUsage } from './model';
 
 const GpuPowerViewComponent = ({
   model,
+  indicatorBarEnabled,
   label,
 }: {
   model: PowerUsage.Model;
+  indicatorBarEnabled: boolean;
   label: string;
 }): ReactElement => {
   const [text, setText] = useState('');
@@ -37,6 +39,7 @@ const GpuPowerViewComponent = ({
   return (
     <IndicatorComponent
       enabled={model.gpuPowerAvailable}
+      indicatorBarEnabled={indicatorBarEnabled}
       values={values}
       label={label}
       color={'#76B900'}
@@ -54,10 +57,15 @@ export namespace GpuPowerView {
    */
   export const createPowerView = (
     model: PowerUsage.Model,
+    indicatorBarEnabled: boolean,
     label: string
   ): ReactWidget => {
     return ReactWidget.create(
-      <GpuPowerViewComponent model={model} label={label} />
+      <GpuPowerViewComponent
+        model={model}
+        indicatorBarEnabled={indicatorBarEnabled}
+        label={label}
+      />
     );
   };
 }

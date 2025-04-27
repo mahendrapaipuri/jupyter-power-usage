@@ -26,6 +26,12 @@
       "default": 5000,
       "type": "number"
     },
+    "indicatorBarDisabled": {
+      "title": "Disable Indicator Bar",
+      "description": "If set to true indicator bar will not be rendered. Only text values will be shown. Useful when working on low resolution screens with a lot of top bar items.",
+      "default": false,
+      "type": "boolean"
+    },
     "cpu": {
       "title": "CPU Power Settings",
       "description": "Settings for the CPU Power indicator",

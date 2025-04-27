@@ -8,9 +8,11 @@ import { PowerUsage } from './model';
 
 const CpuPowerViewComponent = ({
   model,
+  indicatorBarEnabled,
   label,
 }: {
   model: PowerUsage.Model;
+  indicatorBarEnabled: boolean;
   label: string;
 }): ReactElement => {
   const [text, setText] = useState('');
@@ -37,6 +39,7 @@ const CpuPowerViewComponent = ({
   return (
     <IndicatorComponent
       enabled={model.cpuPowerAvailable}
+      indicatorBarEnabled={indicatorBarEnabled}
       values={values}
       label={label}
       color={'#1AB7AE'}
@@ -54,10 +57,15 @@ export namespace CpuPowerView {
    */
   export const createPowerView = (
     model: PowerUsage.Model,
+    indicatorBarEnabled: boolean,
     label: string
   ): ReactWidget => {
     return ReactWidget.create(
-      <CpuPowerViewComponent model={model} label={label} />
+      <CpuPowerViewComponent
+        model={model}
+        indicatorBarEnabled={indicatorBarEnabled}
+        label={label}
+      />
     );
   };
 }

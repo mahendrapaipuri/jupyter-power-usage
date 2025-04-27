@@ -25,6 +25,11 @@ import '../style/index.css';
 const DEFAULT_RAPL_REFRESH_RATE = 5000;
 
 /**
+ * By default indicator bar is always enabled.
+ */
+const DEFAULT_INDICATOR_BAR_DISABLED = false;
+
+/**
  * The default cpu power label.
  */
 const DEFAULT_CPU_POWER_LABEL = 'CPU Power: ';
@@ -88,6 +93,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     console.log('@mahendrapaipuri/jupyter-power-usage extension is activated');
 
     let refreshRate = DEFAULT_RAPL_REFRESH_RATE;
+    let indicatorBarDisabled = DEFAULT_INDICATOR_BAR_DISABLED;
     let cpuPowerLabel = DEFAULT_CPU_POWER_LABEL;
     let gpuPowerLabel = DEFAULT_GPU_POWER_LABEL;
     let emissionsRefreshRate = DEFAULT_EMISSIONS_REFRESH_RATE;
@@ -105,6 +111,10 @@ const extension: JupyterFrontEndPlugin<void> = {
         );
         refreshRate = DEFAULT_RAPL_REFRESH_RATE;
       }
+
+      indicatorBarDisabled = settings.get('indicatorBarDisabled')
+        .composite as boolean;
+
       const emissionsSettings = settings.get('emissions')
         .composite as IEmissionsSettings;
       emissionFactorSource = emissionsSettings.source;
@@ -118,6 +128,7 @@ const extension: JupyterFrontEndPlugin<void> = {
         );
         emissionsRefreshRate = DEFAULT_EMISSIONS_REFRESH_RATE;
       }
+
       const cpuSettings = settings.get('cpu').composite as IResourceSettings;
       cpuPowerLabel = cpuSettings.label;
       const gpuSettings = settings.get('gpu').composite as IResourceSettings;
@@ -148,7 +159,11 @@ const extension: JupyterFrontEndPlugin<void> = {
     // Add cpu power usage panel if metrics are available
     if (model.cpuPowerAvailable) {
       toolbarRegistry.addFactory('TopBar', 'cpu_power', () => {
-        const cpuPower = CpuPowerView.createPowerView(model, cpuPowerLabel);
+        const cpuPower = CpuPowerView.createPowerView(
+          model,
+          !indicatorBarDisabled,
+          cpuPowerLabel
+        );
         return cpuPower;
       });
     }
@@ -156,7 +171,11 @@ const extension: JupyterFrontEndPlugin<void> = {
     // Add gpu power usage panel if metrics are available
     if (model.gpuPowerAvailable) {
       toolbarRegistry.addFactory('TopBar', 'gpu_power', () => {
-        const gpuPower = GpuPowerView.createPowerView(model, gpuPowerLabel);
+        const gpuPower = GpuPowerView.createPowerView(
+          model,
+          !indicatorBarDisabled,
+          gpuPowerLabel
+        );
         return gpuPower;
       });
     }

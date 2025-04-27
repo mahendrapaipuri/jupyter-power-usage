@@ -5,6 +5,13 @@ import { Sparklines, SparklinesLine, SparklinesSpots } from 'react-sparklines';
 /**
  * A indicator fill component.
  */
+function getColor(value: number, baseColor: string): string {
+  return value > 0.5 ? (value > 0.8 ? 'red' : 'orange') : baseColor;
+}
+
+/**
+ * A indicator fill component.
+ */
 const IndicatorFiller = ({
   percentage,
   color,
@@ -41,8 +48,7 @@ const IndicatorBar = ({
     setIsSparklines(!isSparklines);
   };
 
-  const color =
-    percentage > 0.5 ? (percentage > 0.8 ? 'red' : 'orange') : baseColor;
+  const color = getColor(percentage, baseColor);
 
   return (
     <div className="jp-IndicatorBar" onClick={(): void => toggleSparklines()}>
@@ -78,23 +84,26 @@ const IndicatorBar = ({
  */
 export const IndicatorComponent = ({
   enabled,
+  indicatorBarEnabled,
   values,
   label,
   color,
   text,
 }: {
   enabled: boolean;
+  indicatorBarEnabled: boolean;
   values: number[];
   label: string;
   color: string;
   text: string;
 }): ReactElement => {
   const percentage = values[values.length - 1];
+  const textColor = getColor(percentage, color);
   return (
     enabled && (
       <div className="jp-IndicatorContainer">
         <div className="jp-IndicatorText">{label}</div>
-        {percentage !== null && (
+        {percentage !== null && indicatorBarEnabled && (
           <div className="jp-IndicatorWrapper">
             <IndicatorBar
               values={values}
@@ -103,7 +112,12 @@ export const IndicatorComponent = ({
             />
           </div>
         )}
-        <div className="jp-IndicatorText">{text}</div>
+        <div
+          className="jp-IndicatorText"
+          style={{ color: !indicatorBarEnabled && textColor }}
+        >
+          {text}
+        </div>
       </div>
     )
   );

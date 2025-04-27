@@ -8,7 +8,7 @@
 
 ### Bugs fixed
 
-- Force new instance of  `ASyncHTTPclient` [#10](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/10) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+- Force new instance of `ASyncHTTPclient` [#10](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/10) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
 
 ### Contributors to this release
 
