@@ -1,6 +1,7 @@
 import {
   JupyterFrontEnd,
   JupyterFrontEndPlugin,
+  JupyterLab,
 } from '@jupyterlab/application';
 
 import { IToolbarWidgetRegistry } from '@jupyterlab/apputils';
@@ -84,11 +85,12 @@ const extension: JupyterFrontEndPlugin<void> = {
   id: '@mahendrapaipuri/jupyter-power-usage:plugin',
   autoStart: true,
   requires: [IToolbarWidgetRegistry],
-  optional: [ISettingRegistry],
+  optional: [ISettingRegistry, JupyterLab.IInfo],
   activate: async (
     app: JupyterFrontEnd,
     toolbarRegistry: IToolbarWidgetRegistry,
-    settingRegistry: ISettingRegistry | null
+    settingRegistry: ISettingRegistry | null,
+    info: JupyterLab.IInfo | null
   ) => {
     console.log('@mahendrapaipuri/jupyter-power-usage extension is activated');
 
@@ -143,10 +145,24 @@ const extension: JupyterFrontEndPlugin<void> = {
       },
       countryCode: countryCode,
       defaultEmissionFactor: emissionFactor,
+      refreshStandby: () => {
+        if (info) {
+          return !info.isConnected || 'when-hidden';
+        }
+        return 'when-hidden';
+      },
     });
     await emissionsModel.refresh();
 
-    const model = new PowerUsage.Model(emissionsModel, { refreshRate });
+    const model = new PowerUsage.Model(emissionsModel, {
+      refreshRate,
+      refreshStandby: () => {
+        if (info) {
+          return !info.isConnected || 'when-hidden';
+        }
+        return 'when-hidden';
+      },
+    });
     await model.refresh();
 
     // Dispose poll if none of the metrics are available
