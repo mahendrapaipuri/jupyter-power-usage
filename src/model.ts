@@ -47,9 +47,12 @@ export namespace PowerUsage {
         frequency: {
           interval: options.refreshRate,
           backoff: true,
+          max: 300 * 1000,
         },
         name: 'jupyter-power-usage:PowerUsage#metrics',
+        standby: options.refreshStandby || 'when-hidden',
       });
+
       this._poll.ticked.connect((poll) => {
         const { payload, phase } = poll.state;
         if (phase === 'resolved') {
@@ -280,6 +283,11 @@ export namespace PowerUsage {
        * The refresh rate (in ms) for querying the server.
        */
       refreshRate: number;
+
+      /**
+       * When the model stops polling the API. Defaults to `when-hidden`.
+       */
+      refreshStandby?: Poll.Standby | (() => boolean | Poll.Standby);
     }
 
     /**
@@ -357,8 +365,10 @@ export namespace EmissionFactor {
         frequency: {
           interval: options.refreshRate,
           backoff: true,
+          max: 300 * 1000,
         },
         name: 'jupyter-power-usage:EmissionFactor#metrics',
+        standby: options.refreshStandby || 'when-hidden',
       });
       this._poll.ticked.connect((poll) => {
         const { payload, phase } = poll.state;
@@ -476,6 +486,11 @@ export namespace EmissionFactor {
        * Default emissions factor that will be used in case of unavailable data
        */
       defaultEmissionFactor: number;
+
+      /**
+       * When the model stops polling the API. Defaults to `when-hidden`.
+       */
+      refreshStandby?: Poll.Standby | (() => boolean | Poll.Standby);
     }
   }
 }
