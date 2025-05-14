@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.2.1
+
+([Full Changelog](https://github.com/mahendrapaipuri/jupyter-power-usage/compare/v1.2.0...45c7df8af899f3b383ef0ee758f5af425e2bbee8))
+
+### Maintenance and upkeep improvements
+
+- Pass standby callback to polling [#12](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/12) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/mahendrapaipuri/jupyter-power-usage/graphs/contributors?from=2025-04-27&to=2025-05-14&type=c))
+
+[@mahendrapaipuri](https://github.com/search?q=repo%3Amahendrapaipuri%2Fjupyter-power-usage+involves%3Amahendrapaipuri+updated%3A2025-04-27..2025-05-14&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.2.0
 
 ([Full Changelog](https://github.com/mahendrapaipuri/jupyter-power-usage/compare/v1.1.1...903a5deb29fe761cb5da4a1d8a06533ea77bd458))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/mahendrapaipuri/jupyter-power-usage/graphs/contributors?from=2024-04-10&to=2025-04-27&type=c))
 
 [@mahendrapaipuri](https://github.com/search?q=repo%3Amahendrapaipuri%2Fjupyter-power-usage+involves%3Amahendrapaipuri+updated%3A2024-04-10..2025-04-27&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.1.1
 
