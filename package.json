@@ -57,8 +57,8 @@
         "@lumino/polling": "^2.0.0",
         "@lumino/signaling": "^2.0.0",
         "@lumino/widgets": "^2.0.0",
-        "react": "^19.3.1",
-        "react-dom": "^19.3.1",
+        "react": "~18.2.0",
+        "react-dom": "~18.2.0",
         "react-sparklines": "^1.7.0"
     },
     "devDependencies": {
@@ -66,12 +66,11 @@
         "@eslint/js": "^10.0.1",
         "@jupyter/builder": "^1.2.0",
         "@stylistic/eslint-plugin": "^5.10.0",
-        "@types/react": "19.3.0",
-        "@types/react-dom": "^19.3.0",
+        "@types/react": "~18.2.0",
+        "@types/react-dom": "~18.2.0",
         "@types/react-sparklines": "^1.7.0",
         "@typescript-eslint/eslint-plugin": "^8.72.1",
         "@typescript-eslint/parser": "^8.72.1",
-        "@typescript/native": "npm:typescript@^7.0.2",
         "eslint": "^10.14.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.7",
@@ -83,10 +82,10 @@
         "stylelint-config-recommended": "^19.0.0",
         "stylelint-config-standard": "^41.0.0",
         "stylelint-prettier": "^5.0.3",
-        "typescript": "npm:@typescript/typescript6@^6.0.2"
+        "typescript": "~5.9.3"
     },
     "resolutions": {
-        "@types/react": "19.3.0"
+        "@types/react": "18.0.26"
     },
     "jupyterlab": {
         "extension": true,

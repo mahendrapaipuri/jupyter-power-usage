@@ -6,8 +6,8 @@
     "esModuleInterop": true,
     "incremental": true,
     "jsx": "react",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noEmitOnError": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
@@ -18,7 +18,8 @@
     "strict": true,
     "strictNullChecks": false,
     "target": "ES2018",
-    "types": []
+    "types": [],
+    "skipLibCheck": true
   },
   "include": ["src/*", "style/*"]
 }
