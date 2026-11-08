@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.2.2
+
+([Full Changelog](https://github.com/mahendrapaipuri/jupyter-power-usage/compare/v1.2.1...3602dd956ac6211e7a42f01f0e74efac02c8d251))
+
+### Merged PRs
+
+- build(deps): Bump the npm-dependencies group across 1 directory with 22 updates [#17](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/17) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+- build: Bump Python versions in classifiers [#15](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/15) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+- build(deps): Bump the npm-dependencies-security-updates group across 1 directory with 16 updates [#14](https://github.com/mahendrapaipuri/jupyter-power-usage/pull/14) ([@mahendrapaipuri](https://github.com/mahendrapaipuri))
+
+### Contributors to this release
+
+The following people contributed discussions, new ideas, code and documentation contributions, and review.
+See [our definition of contributors](https://github-activity.readthedocs.io/en/latest/use/#how-does-this-tool-define-contributions-in-the-reports).
+
+([GitHub contributors page for this release](https://github.com/mahendrapaipuri/jupyter-power-usage/graphs/contributors?from=2025-05-14&to=2026-11-08&type=c))
+
+@mahendrapaipuri ([activity](https://github.com/search?q=repo%3Amahendrapaipuri%2Fjupyter-power-usage+involves%3Amahendrapaipuri+updated%3A2025-05-14..2026-11-08&type=Issues))
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.2.1
 
 ([Full Changelog](https://github.com/mahendrapaipuri/jupyter-power-usage/compare/v1.2.0...45c7df8af899f3b383ef0ee758f5af425e2bbee8))
@@ -15,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/mahendrapaipuri/jupyter-power-usage/graphs/contributors?from=2025-04-27&to=2025-05-14&type=c))
 
 [@mahendrapaipuri](https://github.com/search?q=repo%3Amahendrapaipuri%2Fjupyter-power-usage+involves%3Amahendrapaipuri+updated%3A2025-04-27..2025-05-14&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.2.0
 
