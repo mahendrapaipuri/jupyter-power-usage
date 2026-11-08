@@ -57,32 +57,35 @@
         "@lumino/polling": "^2.0.0",
         "@lumino/signaling": "^2.0.0",
         "@lumino/widgets": "^2.0.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
+        "react": "~18.2.0",
+        "react-dom": "~18.2.0",
         "react-sparklines": "^1.7.0"
     },
     "devDependencies": {
+        "@eslint/eslintrc": "^3.3.7",
+        "@eslint/js": "^10.0.1",
         "@jupyter/builder": "^1.2.0",
-        "@types/react": "18.2.0",
-        "@types/react-dom": "^18.2.0",
+        "@stylistic/eslint-plugin": "^5.10.0",
+        "@types/react": "~18.2.0",
+        "@types/react-dom": "~18.2.0",
         "@types/react-sparklines": "^1.7.0",
-        "@typescript-eslint/eslint-plugin": "^5.55.0",
-        "@typescript-eslint/parser": "^5.55.0",
-        "eslint": "^8.36.0",
-        "eslint-config-prettier": "^8.7.0",
-        "eslint-plugin-prettier": "^4.2.1",
+        "@typescript-eslint/eslint-plugin": "^8.72.1",
+        "@typescript-eslint/parser": "^8.72.1",
+        "eslint": "^10.14.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-prettier": "^5.5.7",
         "npm-run-all": "^4.1.5",
-        "prettier": "^2.8.4",
-        "rimraf": "^3.0.2",
-        "stylelint": "^14.9.1",
+        "prettier": "^3.9.10",
+        "rimraf": "^6.1.4",
+        "stylelint": "^18.0.0",
         "stylelint-config-prettier": "^9.0.4",
-        "stylelint-config-recommended": "^8.0.0",
-        "stylelint-config-standard": "^26.0.0",
-        "stylelint-prettier": "^2.0.0",
-        "typescript": "~5.0.1"
+        "stylelint-config-recommended": "^19.0.0",
+        "stylelint-config-standard": "^41.0.0",
+        "stylelint-prettier": "^5.0.3",
+        "typescript": "~5.9.3"
     },
     "resolutions": {
-        "@types/react": "18.2.0"
+        "@types/react": "18.0.26"
     },
     "jupyterlab": {
         "extension": true,
@@ -90,78 +93,15 @@
         "outputDir": "jupyter_power_usage/labextension"
     },
     "styleModule": "style/index.js",
-    "eslintIgnore": [
-        "**/*.d.ts",
-        "dist",
-        "*node_modules*",
-        "coverage",
-        "tests",
-        "venv",
-        ".venv"
-    ],
     "prettier": {
-        "singleQuote": true
-    },
-    "eslintConfig": {
-        "extends": [
-            "eslint:recommended",
-            "plugin:@typescript-eslint/eslint-recommended",
-            "plugin:@typescript-eslint/recommended",
-            "plugin:prettier/recommended"
-        ],
-        "parser": "@typescript-eslint/parser",
-        "parserOptions": {
-            "project": "tsconfig.json",
-            "sourceType": "module",
-            "tsconfigRootDir": "."
-        },
-        "plugins": [
-            "@typescript-eslint"
-        ],
-        "rules": {
-            "@typescript-eslint/naming-convention": [
-                "error",
-                {
-                    "selector": "interface",
-                    "format": [
-                        "PascalCase"
-                    ],
-                    "custom": {
-                        "regex": "^I[A-Z]",
-                        "match": true
-                    }
-                }
-            ],
-            "@typescript-eslint/no-unused-vars": [
-                "warn",
-                {
-                    "args": "none"
-                }
-            ],
-            "@typescript-eslint/no-explicit-any": "off",
-            "@typescript-eslint/no-namespace": "off",
-            "@typescript-eslint/no-use-before-define": "off",
-            "@typescript-eslint/quotes": [
-                "error",
-                "single",
-                {
-                    "avoidEscape": true,
-                    "allowTemplateLiterals": false
-                }
-            ],
-            "curly": [
-                "error",
-                "all"
-            ],
-            "eqeqeq": "error",
-            "prefer-arrow-callback": "error"
-        }
+        "singleQuote": true,
+        "trailingComma": "es5"
     },
     "stylelint": {
         "extends": [
             "stylelint-config-recommended",
             "stylelint-config-standard",
-            "stylelint-prettier/recommended"
+            "stylelint-prettier"
         ],
         "rules": {
             "no-empty-source": null,
