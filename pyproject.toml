@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.5.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version"]
+requires = ["hatchling>=1.5.0", "jupyter-builder>=1.0.0", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [project]
@@ -16,10 +16,11 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
     "jupyterlab>=4.0.0,<5",
@@ -84,7 +85,7 @@ tag-message = "[ci skip] Release {tag_name}"
 
 [tool.jupyter-releaser.hooks]
 before-build-npm = [
-    "python -m pip install 'jupyterlab>=4.0.0,<5'",
+    "python -m pip install 'jupyter-builder>=1.0.0'",
     "jlpm",
     "jlpm build:prod"
 ]
@@ -103,10 +104,11 @@ profile = "black"
 line-length = 88
 skip-string-normalization = true
 target-version = [
-    'py38',
-    'py39',
     'py310',
     'py311',
+    'py312',
+    'py313',
+    'py314',
 ]
 
 [tool.pytest.ini_options]
