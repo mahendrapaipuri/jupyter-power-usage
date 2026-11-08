@@ -29,8 +29,8 @@
     },
     "scripts": {
         "build": "jlpm run build:lib && jlpm run build:labextension:dev",
-        "build:labextension": "jupyter labextension build .",
-        "build:labextension:dev": "jupyter labextension build --development True .",
+        "build:labextension": "jupyter-builder build .",
+        "build:labextension:dev": "jupyter-builder build --development True .",
         "build:lib": "tsc",
         "build:prod": "jlpm run build:lib && jlpm run build:labextension",
         "clean": "jlpm run clean:lib",
@@ -46,9 +46,9 @@
         "stylelint": "jlpm stylelint:check --fix",
         "stylelint:check": "stylelint --cache \"style/**/*.css\"",
         "stylelint:files": "stylelint --fix",
-        "install:extension": "jupyter labextension develop --overwrite .",
+        "install:extension": "jupyter-builder develop --overwrite .",
         "watch": "run-p watch:src watch:labextension",
-        "watch:labextension": "jupyter labextension watch .",
+        "watch:labextension": "jupyter-builder watch .",
         "watch:src": "tsc -w"
     },
     "dependencies": {
